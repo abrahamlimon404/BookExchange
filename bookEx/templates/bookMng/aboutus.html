@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+    About Us
+{% endblock title %}
+
+{% block sidenav %}
+    {% for item in item_list %}
+        <li>
+            <a href="{{item.link}}">{{item.item}}</a>
+        </li>
+    {% endfor %}
+{% endblock sidenav %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h1 style="font-size: 36px;">About Us</h1>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-8 col-md-offset-2 text-center">
+                <p style="font-size: 18px;">
+                    Welcome to our book exchange community! The founders of our platform,
+                    <strong>Paul El-Hosni, Nicholas Gochi, Matthew Gutierrez, Daniel Hernandez, Abraham Limon,
+                        and Francisco Sanchez</strong>, are a driven group of computer science students at CSULA.
+                </p>
+                <p style="font-size: 18px;">
+                    Our website is committed to encouraging a love of reading and knowledge sharing.
+                    It enables users to easily upload their books and associated prices, establishing a book exchange.
+                    Discover a wide library that promotes story and idea exchange by allowing all types of
+                    books to be easily accessed through a simple search.
+                </p>
+                <p style="font-size: 18px;">
+                    Come together with us as we create a community that values the joy of reading and the ability to
+                    interact through the exchange of books.
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

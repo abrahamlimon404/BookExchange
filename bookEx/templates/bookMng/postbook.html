@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+    Post
+{% endblock title %}
+
+{% block sidenav %}
+    {% for item in item_list %}
+        <li>
+            <a href="{{item.link}}">{{item.item}}</a>
+        </li>
+    {% endfor %}
+{% endblock sidenav %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="text-center">Post Book</h1>
+        {% if submitted %}
+            <div class="alert alert-success text-center" role="alert">
+                Book Posted Successfully!
+            </div>
+            <div class="text-center">
+                <p>Redirecting in <span id="countdown">3</span> seconds...</p>
+            </div>
+            <script>
+                var seconds = 3; // Set the countdown time
+
+                function updateCountdown() {
+                    document.getElementById('countdown').innerText = seconds;
+                    seconds--;
+
+                    if (seconds < 0) {
+                        window.location.href = "{% url 'displaybooks' %}";
+                    } else {
+                        setTimeout(updateCountdown, 1000);
+                    }
+                }
+
+                setTimeout(updateCountdown, 1000);
+            </script>
+        {% else %}
+            <form action="" enctype="multipart/form-data" method="post" novalidate>
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        {{ form.as_p }}
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                    </div>
+                </div>
+                {% csrf_token %}
+            </form>
+        {% endif %}
+    </div>
+{% endblock content %}
+
+

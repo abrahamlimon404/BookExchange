@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Comments Page
+{% endblock title %}
+
+{% block sidenav %}
+    {% for item in item_list %}
+        <li>
+            <a href="{{ item.link }}">{{ item.item }}</a>
+        </li>
+    {% endfor %}
+{% endblock sidenav %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h1 class="text-center">Post Comment</h1>
+
+        {% if submitted %}
+            <div class="alert alert-success" role="alert">
+                Comment Posted Successfully
+            </div>
+        {% else %}
+            <form action="" enctype="multipart/form-data" method="post" novalidate>
+                <div class="form-group">
+                    <label for="bookName"><strong>Book:</strong></label>
+                    <input type="text" class="form-control" id="bookName" name="book" value="{{ book.name }}" readonly>
+                </div>
+
+                {{ form.as_p }}
+
+                <input type="hidden" name="book_id" value="{{ book.id }}">
+                <button type="submit" class="btn btn-primary">Submit</button>
+
+                {% csrf_token %}
+            </form>
+        {% endif %}
+    </div>
+{% endblock content %}

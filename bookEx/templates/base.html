@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+        Title
+        {% endblock title %}
+    </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+
+</head>
+<body>
+    <img src="{% static 'bannertest.jpg'%}" height="60" width="600" alt=""/>
+    <nav class="navbar navbar-inverse" style="margin-top: 0px;">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <img src="{% static 'logotest.jpg'%}" height="60" width="60" alt=""/>
+             </div>
+            <span style="float: right">
+            {% if user.is_authenticated %}
+                <span style="color:white">{{ user.username }}</span>
+                <a href="{% url 'logout' %}?next=/">Logout</a>
+            {% else %}
+                <span style="color:white">Not Logged in</span>
+                <a href="{% url 'login' %}?next=/"> Login </a>
+            {% endif %}
+            </span>
+            <ul class="nav navbar-nav">
+                {% block sidenav %}
+
+                {% endblock sidenav %}
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="container">
+        <section id="main">
+            {% block content %}
+            <h1 align="center">This is our BookExchange System</h1>
+            {% endblock content %}
+        </section>
+    </div>
+
+    <!-- Include Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-pzjw8f+ua/CnNqdVgVopFq3L/kXIB6jA5IzFLg6oAlyA6kE4Jo1F8Pv5fnpsd3L" crossorigin="anonymous"></script>
+</body>
+</html>

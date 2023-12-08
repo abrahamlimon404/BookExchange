@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+    Book Deleted
+{% endblock title %}
+
+{% block sidenav %}
+    {% for item in item_list %}
+        <li>
+            <a href="{{item.link}}">{{item.item}}</a>
+        </li>
+    {% endfor %}
+{% endblock sidenav %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="text-center mt-3">Book Deleted</h1>
+        <div class="alert alert-success text-center" role="alert">
+            The book has been deleted successfully!
+        </div>
+        <div class="text-center">
+            <p>Redirecting in <span id="countdown">3</span> seconds...</p>
+        </div>
+        <script>
+            var seconds = 3; // Set the countdown time
+
+            function updateCountdown() {
+                document.getElementById('countdown').innerText = seconds;
+                seconds--;
+
+                if (seconds < 0) {
+                    window.location.href = "{% url 'mybooks' %}";  // Redirect to mybooks page
+                } else {
+                    setTimeout(updateCountdown, 1000);
+                }
+            }
+
+            setTimeout(updateCountdown, 1000);
+        </script>
+    </div>
+{% endblock content %}
+

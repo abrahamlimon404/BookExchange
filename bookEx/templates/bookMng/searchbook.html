@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+    Book Search
+{% endblock title %}
+
+{% block sidenav %}
+    {% for item in item_list %}
+        {% if item.item != "Search Book" %}
+            <li>
+                <a href="{{item.link}}">{{item.item}}</a>
+            </li>
+        {% endif %}
+    {% endfor %}
+    <li>
+        <form class="navbar-form" action="{% url 'searchbook' %}" method="post" novalidate>
+            <div class="input-group">
+                <input class="form-control" type="text" size="20" placeholder="Search Book" name="searched">
+                <div class="input-group-btn">
+                    <button type="submit" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </div>
+                {% csrf_token %}
+            </div>
+        </form>
+    </li>
+{% endblock sidenav %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="text-center">Search Book Page</h1>
+
+        {% if book and searched %}
+            <h2 class="text-center">You Searched For "{{ searched }}"</h2>
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>Book Name</th>
+                            <th>Book Price</th>
+                            <th class="text-center">Book Image</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for book in book %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'book_detail' book.id %}">
+                                        {{ book.name }}
+                                    </a>
+                                </td>
+                                <td>{{ book.price }}</td>
+                                <td>
+                                    <div class="text-center">
+                                        <img src="{% static book.pic_path %}" height="60" width="60" alt=""/>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% elif not searched %}
+            <h2 class="text-center">Search For Any Book!</h2>
+        {% else %}
+            <h2 class="text-center">You Searched For "{{ searched }}"</h2>
+            <h3 class="text-center">Book Not Found!</h3>
+        {% endif %}
+    </div>
+{% endblock content %}
+

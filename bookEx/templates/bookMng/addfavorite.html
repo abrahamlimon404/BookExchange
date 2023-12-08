@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+    Book Add Favorite
+{% endblock title %}
+
+{% block sidenav %}
+    {% for item in item_list %}
+        <li style="padding-right: 10%;">
+            <a href="{{ item.link }}">{{ item.item }}</a>
+        </li>
+    {% endfor %}
+{% endblock sidenav %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h1 class="text-center">Book Added as a Favorite!</h1>
+
+        <div class="text-center mt-4">
+            <a href="{% url 'myfavorites' %}" class="btn btn-primary btn-lg" role="button">Go To Favorites</a>
+            <a href="{% url 'displaybooks' %}" class="btn btn-secondary btn-lg ml-2" role="button">Go Back</a>
+        </div>
+    </div>
+{% endblock content %}
+

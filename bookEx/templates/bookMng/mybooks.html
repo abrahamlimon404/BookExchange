@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+    My Books
+{% endblock title %}
+
+{% block sidenav %}
+    {% for item in item_list %}
+        <li>
+            <a href="{{item.link}}">{{item.item}}</a>
+        </li>
+    {% endfor %}
+{% endblock sidenav %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="text-center mt-3">My Books</h1>
+        <table class="table table-hover table-striped text-center">
+            <thead>
+                <tr>
+                    <th>Book Name</th>
+                    <th>Book Price</th>
+                    <th>Book Image</th>
+                    <th>Add Comment</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'book_detail' book.id %}">
+                                {{ book.name }}
+                            </a>
+                        </td>
+                        <td>
+                            {{ book.price }}
+                        </td>
+                        <td>
+                            <img src="{% static book.pic_path %}" height="60" width="60" alt="{{ book.name }} Image"/>
+                        </td>
+                        <td>
+                            <a href="mybooks/postcomment/{{ book.id }}" class="btn btn-info btn-sm" role="button">
+                                Comment
+                            </a>
+                        </td>
+                        <td>
+                            <a href="book_delete/{{ book.id }}" class="btn btn-danger btn-sm" role="button">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
+
